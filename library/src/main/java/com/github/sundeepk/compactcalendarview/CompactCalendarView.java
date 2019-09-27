@@ -161,6 +161,10 @@ public class CompactCalendarView extends View {
         return compactCalendarController.getFirstDayOfCurrentMonth();
     }
 
+    public Date getLastDayOfCurrentMonth() {
+        return compactCalendarController.getLastDayOfCurrentMonth();
+    }
+
     public void shouldDrawIndicatorsBelowSelectedDays(boolean shouldDrawIndicatorsBelowSelectedDays){
         compactCalendarController.shouldDrawIndicatorsBelowSelectedDays(shouldDrawIndicatorsBelowSelectedDays);
     }

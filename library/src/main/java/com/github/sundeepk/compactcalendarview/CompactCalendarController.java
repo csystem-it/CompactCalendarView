@@ -644,6 +644,15 @@ class CompactCalendarController {
         return calendar.getTime();
     }
 
+    Date getLastDayOfCurrentMonth() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        calendar.add(Calendar.MONTH, 1);
+        calendar.set(Calendar.DATE, 1);
+        calendar.add(Calendar.DATE, -1);
+        return calendar.getTime();
+    }
+
     Date getCurrentDate() {
         return currentDate;
     }
