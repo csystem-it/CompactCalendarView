@@ -32,14 +32,14 @@ public class CompactCalendarView extends View {
     private GestureDetectorCompat gestureDetector;
     private boolean horizontalScrollEnabled = true;
 
-    public interface CompactCalendarViewListener {
-        public void onDayClick(Date dateClicked);
-        public void onMonthScroll(Date firstDayOfNewMonth);
+    public Date getCurrentDate() {
+        return compactCalendarController.getCurrentDate();
     }
 
-    public interface CompactCalendarAnimationListener {
-        public void onOpened();
-        public void onClosed();
+    public interface CompactCalendarViewListener {
+        void onDayClick(Date dateClicked);
+
+        void onMonthScroll(Date firstDayOfNewMonth);
     }
 
     private final GestureDetector.SimpleOnGestureListener gestureListener = new GestureDetector.SimpleOnGestureListener() {
@@ -163,6 +163,12 @@ public class CompactCalendarView extends View {
 
     public void shouldDrawIndicatorsBelowSelectedDays(boolean shouldDrawIndicatorsBelowSelectedDays){
         compactCalendarController.shouldDrawIndicatorsBelowSelectedDays(shouldDrawIndicatorsBelowSelectedDays);
+    }
+
+    public interface CompactCalendarAnimationListener {
+        void onOpened();
+
+        void onClosed();
     }
 
     public void setCurrentDate(Date dateTimeMonth){

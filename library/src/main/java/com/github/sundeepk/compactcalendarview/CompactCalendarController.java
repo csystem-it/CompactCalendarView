@@ -88,7 +88,7 @@ class CompactCalendarController {
     private Date currentDate = new Date();
     private Locale locale;
     private Calendar currentCalender;
-    private Calendar todayCalender;
+    private Calendar todayCalendar;
     private Calendar calendarWithFirstDayOfMonth;
     private Calendar eventsCalendar;
     private EventsContainer eventsContainer;
@@ -170,7 +170,7 @@ class CompactCalendarController {
 
     private void init(Context context) {
         currentCalender = Calendar.getInstance(timeZone, locale);
-        todayCalender = Calendar.getInstance(timeZone, locale);
+        todayCalendar = Calendar.getInstance(timeZone, locale);
         calendarWithFirstDayOfMonth = Calendar.getInstance(timeZone, locale);
         eventsCalendar = Calendar.getInstance(timeZone, locale);
         tempPreviousMonthCalendar = Calendar.getInstance(timeZone, locale);
@@ -178,7 +178,7 @@ class CompactCalendarController {
         // make setMinimalDaysInFirstWeek same across android versions
         eventsCalendar.setMinimalDaysInFirstWeek(1);
         calendarWithFirstDayOfMonth.setMinimalDaysInFirstWeek(1);
-        todayCalender.setMinimalDaysInFirstWeek(1);
+        todayCalendar.setMinimalDaysInFirstWeek(1);
         currentCalender.setMinimalDaysInFirstWeek(1);
         tempPreviousMonthCalendar.setMinimalDaysInFirstWeek(1);
 
@@ -195,8 +195,8 @@ class CompactCalendarController {
         textHeight = textSizeRect.height() * 3;
         textWidth = textSizeRect.width() * 2;
 
-        todayCalender.setTime(new Date());
-        setToMidnight(todayCalender);
+        todayCalendar.setTime(new Date());
+        setToMidnight(todayCalendar);
 
         currentCalender.setTime(currentDate);
         setCalenderToFirstDayOfMonth(calendarWithFirstDayOfMonth, currentDate, -monthsScrolledSoFar, 0);
@@ -315,7 +315,7 @@ class CompactCalendarController {
         setUseWeekDayAbbreviation(useThreeLetterAbbreviation);
         eventsCalendar.setFirstDayOfWeek(day);
         calendarWithFirstDayOfMonth.setFirstDayOfWeek(day);
-        todayCalender.setFirstDayOfWeek(day);
+        todayCalendar.setFirstDayOfWeek(day);
         currentCalender.setFirstDayOfWeek(day);
         tempPreviousMonthCalendar.setFirstDayOfWeek(day);
     }
@@ -644,6 +644,10 @@ class CompactCalendarController {
         return calendar.getTime();
     }
 
+    Date getCurrentDate() {
+        return currentDate;
+    }
+
     void setCurrentDate(Date dateTimeMonth) {
         distanceX = 0;
         monthsScrolledSoFar = 0;
@@ -651,7 +655,7 @@ class CompactCalendarController {
         scroller.startScroll(0, 0, 0, 0);
         currentDate = new Date(dateTimeMonth.getTime());
         currentCalender.setTime(currentDate);
-        todayCalender = Calendar.getInstance(timeZone, locale);
+        todayCalendar = Calendar.getInstance(timeZone, locale);
         setToMidnight(currentCalender);
         listener.onDayClick(currentDate);
     }
@@ -766,11 +770,11 @@ class CompactCalendarController {
         int currentMonth = currentMonthToDrawCalender.get(Calendar.MONTH);
         List<Events> uniqEvents = eventsContainer.getEventsForMonthAndYear(currentMonth, currentMonthToDrawCalender.get(Calendar.YEAR));
 
-        boolean shouldDrawCurrentDayCircle = currentMonth == todayCalender.get(Calendar.MONTH);
+        boolean shouldDrawCurrentDayCircle = currentMonth == todayCalendar.get(Calendar.MONTH);
         boolean shouldDrawSelectedDayCircle = currentMonth == currentCalender.get(Calendar.MONTH);
 
-        int todayDayOfMonth = todayCalender.get(Calendar.DAY_OF_MONTH);
-        int currentYear = todayCalender.get(Calendar.YEAR);
+        int todayDayOfMonth = todayCalendar.get(Calendar.DAY_OF_MONTH);
+        int currentYear = todayCalendar.get(Calendar.YEAR);
         int selectedDayOfMonth = currentCalender.get(Calendar.DAY_OF_MONTH);
         float indicatorOffset = bigCircleIndicatorRadius / 2;
         if (uniqEvents != null) {
@@ -878,11 +882,11 @@ class CompactCalendarController {
         //offset by one because we want to start from Monday
         int firstDayOfMonth = getDayOfWeek(monthToDrawCalender);
 
-        boolean isSameMonthAsToday = monthToDrawCalender.get(Calendar.MONTH) == todayCalender.get(Calendar.MONTH);
-        boolean isSameYearAsToday = monthToDrawCalender.get(Calendar.YEAR) == todayCalender.get(Calendar.YEAR);
+        boolean isSameMonthAsToday = monthToDrawCalender.get(Calendar.MONTH) == todayCalendar.get(Calendar.MONTH);
+        boolean isSameYearAsToday = monthToDrawCalender.get(Calendar.YEAR) == todayCalendar.get(Calendar.YEAR);
         boolean isSameMonthAsCurrentCalendar = monthToDrawCalender.get(Calendar.MONTH) == currentCalender.get(Calendar.MONTH) &&
                                                monthToDrawCalender.get(Calendar.YEAR) == currentCalender.get(Calendar.YEAR);
-        int todayDayOfMonth = todayCalender.get(Calendar.DAY_OF_MONTH);
+        int todayDayOfMonth = todayCalendar.get(Calendar.DAY_OF_MONTH);
         boolean isAnimatingWithExpose = animationStatus == EXPOSE_CALENDAR_ANIMATION;
 
         int maximumMonthDay = monthToDrawCalender.getActualMaximum(Calendar.DAY_OF_MONTH);
