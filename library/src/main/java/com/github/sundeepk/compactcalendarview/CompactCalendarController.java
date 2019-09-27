@@ -15,7 +15,9 @@ import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.ViewConfiguration;
 import android.widget.OverScroller;
+
 import com.github.sundeepk.compactcalendarview.domain.Event;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -651,6 +653,7 @@ class CompactCalendarController {
         currentCalender.setTime(currentDate);
         todayCalender = Calendar.getInstance(timeZone, locale);
         setToMidnight(currentCalender);
+        listener.onDayClick(currentDate);
     }
 
     private void setToMidnight(Calendar calendar) {
