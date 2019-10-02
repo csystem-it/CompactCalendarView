@@ -446,4 +446,9 @@ public class CompactCalendarView extends View {
         return this.horizontalScrollEnabled;
     }
 
+    @Override
+    public void setEnabled(boolean enabled) {
+        compactCalendarController.setEnabled(enabled);
+    }
+
 }
