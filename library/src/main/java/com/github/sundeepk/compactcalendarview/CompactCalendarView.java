@@ -449,6 +449,7 @@ public class CompactCalendarView extends View {
     @Override
     public void setEnabled(boolean enabled) {
         compactCalendarController.setEnabled(enabled);
+        shouldScrollMonth(enabled);
     }
 
 }
